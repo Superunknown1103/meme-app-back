@@ -1,0 +1,32 @@
+<%= form_with(model: meme, local: true) do |form| %>
+  <% if meme.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(meme.errors.count, "error") %> prohibited this meme from being saved:</h2>
+
+      <ul>
+      <% meme.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :link %>
+    <%= form.text_field :link %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :votes %>
+    <%= form.text_field :votes %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
