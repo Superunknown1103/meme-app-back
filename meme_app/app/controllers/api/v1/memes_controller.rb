@@ -2,6 +2,7 @@ require 'pry'
 
 class Api::V1::MemesController < ApplicationController
   before_action :set_meme, only: [:show, :update, :destroy]
+  skip_before_action :verify_authenticity_token, :only => [:index, :create]
 
   # GET /memes
   def index
@@ -23,7 +24,8 @@ class Api::V1::MemesController < ApplicationController
   # POST /memes.json
   def create
     @meme = Meme.new(meme_params)
-
+    binding.pry
+    @meme.link.attach(params[:link])
     if @meme.save
       render json: @meme, status: :created, location: api_v1_meme_url(@meme)
     else 
