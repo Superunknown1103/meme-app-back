@@ -7,7 +7,15 @@ class Api::V1::MemesController < ApplicationController
   # GET /memes
   def index
     @memes = Meme.all
-    render json: @memes
+    @meme_array = []
+    @memes.map do | meme |
+      if (meme.link.attached?)
+       link = Rails.application.routes.url_helpers.rails_blob_path(meme.link, only_path: true)
+       @meme_array.push({ :meme => meme, :link => link})
+      end
+    end
+
+    render json: @meme_array
   end
 
   # GET /memes/1
@@ -24,8 +32,8 @@ class Api::V1::MemesController < ApplicationController
   # POST /memes.json
   def create
     @meme = Meme.new(meme_params)
-    binding.pry
-    @meme.link.attach(params[:link])
+    @meme.link.attach(params[:meme][:link])
+    # @meme.link.attach(io: File.open("/path/to/#{[:me]}.jpg"), filename: "pic.jpg", content_type: "image/jpg")
     if @meme.save
       render json: @meme, status: :created, location: api_v1_meme_url(@meme)
     else 
