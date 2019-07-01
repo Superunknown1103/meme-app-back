@@ -2,7 +2,7 @@ require 'pry'
 
 class Api::V1::MemesController < ApplicationController
   before_action :set_meme, only: [:show, :update, :destroy]
-  skip_before_action :verify_authenticity_token, :only => [:index, :create]
+  skip_before_action :verify_authenticity_token, :only => [:index, :create, :increase_vote]
 
   # GET /memes
   def index
@@ -16,6 +16,13 @@ class Api::V1::MemesController < ApplicationController
     end
 
     render json: @meme_array
+  end
+
+  def increase_vote
+    meme = Meme.find_by_id(params[:id])
+    # if current user has voted on this meme, do not allow them to continue voting
+    meme.votes += 1
+    meme.save
   end
 
   # GET /memes/1
