@@ -3,6 +3,15 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.1'
 #rack-cors
+
+gem 'dotenv-rails', groups: [:development, :test]
+#dot-env
+gem 'devise'
+#devise
+gem 'omniauth'
+#omniauth
+gem 'devise_token_auth'
+#devise token auth
 gem 'rack-cors'
 # pry
 gem 'pry'
