@@ -9,16 +9,17 @@ Bundler.require(*Rails.groups)
 module MemeApp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    # config.load_defaults 5.2
 
     config.api_only = true
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*'
+        origins 'http://localhost:3001'
         resource '*', 
-        :headers => :any, methods: [:get, :post, :options],
-        :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client']
+        :headers => :any,
+        :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+        methods: [:get, :post, :patch, :delete, :options]
       end
     end
 

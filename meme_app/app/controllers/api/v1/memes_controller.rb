@@ -2,8 +2,6 @@ require 'pry'
 
 class Api::V1::MemesController < ApplicationController
   before_action :set_meme, only: [:show, :update, :destroy]
-  before_action :authenticate_user!
-  skip_before_action :verify_authenticity_token, :only => [:index, :create, :increase_vote]
 
   # GET /memes
   def index
