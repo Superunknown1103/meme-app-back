@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :items
   mount_devise_token_auth_for 'User', at: 'auth'
   namespace :api do
     namespace :v1 do
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
     end
   end
 
+  post 'authenticate', action: :authenticate, controller: 'api/v1/authentication'
   root to: 'home#index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

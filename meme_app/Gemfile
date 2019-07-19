@@ -6,10 +6,14 @@ ruby '2.6.1'
 
 gem 'dotenv-rails', groups: [:development, :test]
 #dot-env
-gem 'devise'
-#devise
+gem 'bcrypt'
+#bcrypt
 gem 'omniauth'
 #omniauth
+gem 'jwt'
+#jwt
+gem 'simple_command'
+#simple command
 gem 'devise_token_auth'
 #devise token auth
 gem 'rack-cors'

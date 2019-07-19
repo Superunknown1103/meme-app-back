@@ -40,11 +40,11 @@ class Api::V1::MemesController < ApplicationController
     @meme = Meme.new(meme_params)
     @meme.link.attach(params[:meme][:link])
     # @meme.link.attach(io: File.open("/path/to/#{[:me]}.jpg"), filename: "pic.jpg", content_type: "image/jpg")
-    if @meme.save
+   if @meme.save
       render json: @meme, status: :created, location: api_v1_meme_url(@meme)
     else 
       render json: @meme.errors, status: :unprocessable_entity
-    end
+    end 
   end
 
   # # PATCH/PUT /memes/1
