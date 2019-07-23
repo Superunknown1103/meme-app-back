@@ -19,10 +19,17 @@ class Api::V1::MemesController < ApplicationController
   end
 
   def increase_vote
-    meme = Meme.find_by_id(params[:id])
-    # if current user has voted on this meme, do not allow them to continue voting
-    meme.votes += 1
-    meme.save
+    @meme = Meme.find_by_id(params[:id])
+    @user = User.find_by_id(params[:user])
+    @vote_allowed = false
+    @vote_instance = Vote.new(meme_id: @meme.id, user_id: @user.id)
+    if @vote_instance.save
+      @meme.votes += 1
+      @meme.save
+      @vote_allowed = true
+    end
+
+    render json: { meme: @meme, permitted: @vote_allowed }
   end
 
   # GET /memes/1
