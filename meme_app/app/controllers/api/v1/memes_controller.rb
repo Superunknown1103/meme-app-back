@@ -2,6 +2,7 @@ require 'pry'
 
 class Api::V1::MemesController < ApplicationController
   before_action :set_meme, only: [:show, :update, :destroy]
+  skip_before_action :authenticate_request
 
   # GET /memes
   def index

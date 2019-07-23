@@ -5,11 +5,19 @@ class AuthenticateUser
         @email = email
         @password = password
     end
-    
+
 
     def call
-        JsonWebToken.encode(user_id: user.id) if user
+        @resp_hash = Hash.new
+        @resp_hash[:token] = JsonWebToken.encode(user_id: user.id) if user
+        @resp_hash[:user_info] = user
+        return @resp_hash
     end
+
+    # def user_info 
+    #     user = User.find_by_email(email)
+    #     return user
+    # end
 
     private
 
