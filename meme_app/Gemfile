@@ -17,8 +17,14 @@ gem 'simple_command'
 gem 'devise_token_auth'
 #devise token auth
 gem 'rack-cors'
-# pry
+#good ol pry
 gem 'pry'
+# # pry-byebug
+# gem 'pry-byebug'
+# #pry-nav
+# gem 'pry-nav'
+# #pry-remote
+# gem 'pry-remote'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 # Use sqlite3 as the database for Active Record

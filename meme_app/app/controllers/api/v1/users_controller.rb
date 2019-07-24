@@ -3,6 +3,7 @@ require 'pry'
 
 class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authenticate_request, only: [:create]
   
   # GET /users
   # GET /users.json
@@ -25,7 +26,8 @@ class Api::V1::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      render json: @user, status: 200, location: api_v1_user_url(@user)
+      command = AuthenticateUser.call(user_params[:email], user_params[:password])
+      render json: { token: command.result[:token], u_id: command.result[:user_info].id }
     else 
       render json: @user.errors, status: :unprocessable_entity
     end 
@@ -63,6 +65,6 @@ class Api::V1::UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :password_digest, :email)
+      params.require(:user).permit(:name, :password, :password_digest, :email)
     end
 end

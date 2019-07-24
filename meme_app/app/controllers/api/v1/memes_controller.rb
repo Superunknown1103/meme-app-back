@@ -24,11 +24,10 @@ class Api::V1::MemesController < ApplicationController
     @vote_allowed = false
     @vote_instance = Vote.new(meme_id: @meme.id, user_id: @user.id)
     if @vote_instance.save
-      @meme.votes += 1
+      @meme.votes = @meme.votes + 1
       @meme.save
       @vote_allowed = true
     end
-
     render json: { meme: @meme, permitted: @vote_allowed }
   end
 
