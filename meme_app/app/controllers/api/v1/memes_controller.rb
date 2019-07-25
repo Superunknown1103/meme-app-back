@@ -14,7 +14,10 @@ class Api::V1::MemesController < ApplicationController
        @meme_array.push({ :meme => meme, :link => link})
       end
     end
-
+    # sort for highest to lowest upvote
+    if (params[:sort])
+      @meme_array = @meme_array.sort_by { |meme| meme[:meme][:votes] }.reverse! 
+    end
     render json: @meme_array
   end
 
