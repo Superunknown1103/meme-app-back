@@ -13,6 +13,7 @@ class AuthenticateUser
         return @resp_hash
     end
 
+
     # def user_info 
     #     user = User.find_by_email(email)
     #     return user

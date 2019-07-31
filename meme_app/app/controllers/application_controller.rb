@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
     before_action :authenticate_request
     attr_reader :current_user
 
+    #cant use session :( so needed to make this variable
+    $logged_in = false
+
     private
 
     def authenticate_request

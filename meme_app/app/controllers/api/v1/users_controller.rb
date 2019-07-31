@@ -3,7 +3,7 @@ require 'pry'
 
 class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  skip_before_action :authenticate_request, only: [:create]
+  skip_before_action :authenticate_request, only: [:create, :verify_token]
   
   # GET /users
   # GET /users.json
@@ -66,5 +66,9 @@ class Api::V1::UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :password, :password_digest, :email)
+    end
+
+    def token_params
+      params.permit(:token)
     end
 end
