@@ -9,9 +9,10 @@ class Api::V1::MemesController < ApplicationController
     @memes = Meme.all
     @meme_array = []
     @memes.map do | meme |
+      @name = User.find(meme.user_id).name
       if (meme.link.attached?)
        link = Rails.application.routes.url_helpers.rails_blob_path(meme.link, only_path: true)
-       @meme_array.push({ :meme => meme, :link => link})
+       @meme_array.push({ :meme => meme, :link => link, :name => @name})
       end
     end
     # sort for highest to lowest upvote

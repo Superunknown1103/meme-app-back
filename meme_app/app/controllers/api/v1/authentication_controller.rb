@@ -12,6 +12,13 @@ class Api::V1::AuthenticationController < ApplicationController
     end
 
     def verify_auth
+        p '---------$' + logged_in + '$---------' 
+        render json: { authenticated: $logged_in }
+    end
+
+    def logout
+        $logged_in = false
+        p '---------$' + logged_in + '$---------' 
         render json: { authenticated: $logged_in }
     end
 
