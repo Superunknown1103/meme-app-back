@@ -25,9 +25,10 @@ class Api::V1::UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    binding.pry
     if @user.save
       command = AuthenticateUser.call(user_params[:email], user_params[:password])
-      render json: { token: command.result[:token], u_id: command.result[:user_info].id }
+      render json: { token: command.result[:token], u_id: command.result[:user_info].id, u_name: command.result[:user_info].name }
     else 
       render json: @user.errors, status: :unprocessable_entity
     end 
